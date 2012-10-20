@@ -163,7 +163,14 @@ LOGGING = {
     }
 }
 
+# Django Auth UserProfile
 AUTH_PROFILE_MODULE = "accounts.UserProfile"
+
+# Django Registration
+ACCOUNT_ACTIVATION_DAYS = 7
+
+# Django Login
+LOGIN_REDIRECT_URL = '/'
 
 try:
     LOCAL_SETTINGS
