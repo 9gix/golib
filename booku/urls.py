@@ -10,6 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^book/', include('catalog.urls', namespace='catalog')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^$', 'booku.views.index'),
 )
 urlpatterns += staticfiles_urlpatterns()

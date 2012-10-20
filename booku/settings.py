@@ -163,7 +163,11 @@ LOGGING = {
     }
 }
 
+# Django Auth UserProfile
 AUTH_PROFILE_MODULE = "accounts.UserProfile"
+
+# Django Registration
+ACCOUNT_ACTIVATION_DAYS = 7
 
 try:
     LOCAL_SETTINGS
