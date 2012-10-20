@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
-<h1>Book Listing</h1>
-<ul>
+{% if books %}
+<h1>Book Listing</h1><ul>
 {% for book in books %}
     <li><a href="{% url catalog:book_details book.id %}">{{ book.name }}</a></li>
 {% endfor %}
 </ul>
+{% endif %}
 {% endblock %}
