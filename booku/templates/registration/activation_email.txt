@@ -1,0 +1,6 @@
+Thank you for your registration on {{ site }}
+
+Activate your account within {{ expiration_days }}
+Kindly click the link below to activate your account:
+{{ site }}{% url registration_activate activation_key %}
+
