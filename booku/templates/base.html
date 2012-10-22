@@ -8,10 +8,15 @@
     <body>
       <a href='/'><img src='{% static "images/building_site.png" %}' width='300'/></a>
       {% if user.is_authenticated %}
-      <a href='{% url auth_logout %}'>Logout</a>
+        {% if user.get_profile %}
+          <a href="{% url profiles_profile_detail user.username %}">Hi {{ user.first_name }}</a>
+        {% else %}
+          <a href="{% url profiles_create_profile %}">Profile</a>
+        {% endif %}
+        <a href='{% url auth_logout %}'>Logout</a>
       {% else %}
-      <a href='{% url auth_login %}'>Login</a>
-      <a href='{% url registration_register %}'>Register</a>
+        <a href='{% url auth_login %}'>Login</a>
+        <a href='{% url registration_register %}'>Register</a>
       {% endif %}
       <hr />
       {% block body %}

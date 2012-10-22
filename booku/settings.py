@@ -130,6 +130,7 @@ INSTALLED_APPS = (
 
     # 3rd Party Apps
     'django_extensions',
+    'profiles',
     'registration',
     'south',
 )
