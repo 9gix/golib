@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^book/', include('catalog.urls', namespace='catalog')),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^profile/', include('profiles.urls')),
+    url(r'^profile/', include('accounts.urls')),
     url(r'^$', 'booku.views.index'),
 )
 urlpatterns += staticfiles_urlpatterns()
