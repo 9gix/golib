@@ -6,7 +6,7 @@ from registration.signals import user_registered
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     contact = models.CharField(max_length=15, blank=True)
-    address = models.CharField(max_length=250, blank=True)
+    address = models.TextField(max_length=250, blank=True)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
