@@ -2,3 +2,4 @@ django>=1.4
 south>=0.7.6
 django-extensions>=0.9
 django-registration>=0.8
+django-profiles>=0.2
