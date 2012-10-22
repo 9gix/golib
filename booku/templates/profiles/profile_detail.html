@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
 {% block body %}
-{{ profile }}
+Name : 
+{% if user == profile.user %}
+{{ user.get_full_name }}
+{% else %}
+{{ profile.user.first_name }}
+{% endif %}
+Address : {{ profile.address }}
+Contact : {{ profile.contact }}
+
+{% if user == profile.user %}
+<a href="{% url profiles_edit_profile %}">Edit Profile</a>
+{% endif %}
 {% endblock %}
