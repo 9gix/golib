@@ -11,5 +11,6 @@ Contact : {{ profile.contact }}
 
 {% if user == profile.user %}
 <a href="{% url profiles_edit_profile %}">Edit Profile</a>
+<a href="{% url catalog:book_add %}">Add Book</a>
 {% endif %}
 {% endblock %}
