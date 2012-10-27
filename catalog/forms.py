@@ -1,6 +1,7 @@
 from django import forms
 from catalog.models import Book, BookOwner, validate_isbn
 from django.forms.widgets import HiddenInput
+from django.forms.models import fields_for_model
 from catalog.book import search_and_save_to_db
 from django.core.exceptions import ValidationError
 
@@ -14,12 +15,12 @@ class BookModelForm(forms.ModelForm):
 
 class BookOwnerForm(forms.ModelForm):
     isbn = forms.CharField(label="ISBN", max_length=20, required=False)
-    title = forms.CharField(label="Title", max_length=150, required=False, widget=HiddenInput)
+    title = forms.CharField(label="Title", max_length=150, required=False)
 
     class Meta:
         model = BookOwner
         exclude = ('owner', 'book',)
-        fields = ['isbn','availability','condition']
+        fields = ['isbn','title','availability','condition']
 
     def clean(self):
         title = self.cleaned_data.get('title')
