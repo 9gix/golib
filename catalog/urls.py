@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from catalog.models import Book, BookOwner
 from catalog.forms import BookOwnerForm
-from catalog.views import BookUpdateView
+from catalog.views import BookUpdateView, BookDeleteView
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = patterns('catalog.views',
@@ -11,6 +11,8 @@ urlpatterns = patterns('catalog.views',
         name='book_details'),
     url(r'^update/(?P<pk>\d+)/$', login_required(BookUpdateView.as_view()),
         name='book_update'),
+    url(r'^delete/(?P<pk>\d+)/$', login_required(BookDeleteView.as_view()),
+        name='book_delete'),
     url(r'^add/$', 'book_add',
         name='book_add'),
     url(r'^shelf/$', 'bookshelf',
