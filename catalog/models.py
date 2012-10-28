@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import re
 from django.core.exceptions import ValidationError
 from catalog.isbn import isValid as isbn_validator
+from django.template.defaultfilters import slugify
 
 def validate_isbn(isbn):
     if not isbn_validator(isbn):
@@ -31,6 +32,11 @@ class Book(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.title)
+        super(Book, self).save(*args, **kwargs)
 
 class BookOwner(models.Model):
     CONDITION_CHOICES = (
