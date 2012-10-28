@@ -7,6 +7,9 @@ from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.contrib.sites.models import get_current_site
 from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -19,6 +22,7 @@ def book_details(request, isbn=None, slug=None, template_name='catalog/book_deta
     book_owner_list = BookOwner.objects.filter(book=book)
     return render(request, template_name, locals())
 
+@login_required
 def book_add(request):
     if request.method == 'POST':
         book_owner = BookOwner(owner=request.user)
@@ -30,6 +34,12 @@ def book_add(request):
         form = BookOwnerForm()
     return render(request, 'catalog/book_add.html', locals())
 
+@login_required
+def bookshelf(request, template_name='catalog/bookshelf.html'):
+    book_owners = BookOwner.objects.filter(
+            owner__username=request.user.username)
+    return render(request, template_name, locals())
+
 def book_list(request, template_name='catalog/book_list.html'):
     books = Book.objects.annotate(Count('owners')).filter(owners__count__gt=0)
     for book in books:
@@ -37,6 +47,7 @@ def book_list(request, template_name='catalog/book_list.html'):
     form = BookOwnerForm()
     return render(request, template_name, locals())
 
+@login_required
 def notify_owner(request, book_owner_id=None,
         template_name='catalog/notify_owner.html'):
     book_owner = BookOwner.objects.get(id=book_owner_id)
@@ -63,3 +74,16 @@ def notify_owner(request, book_owner_id=None,
         form = MessageOwnerForm()
     return render(request, template_name, locals())
 
+class BookUpdateView(UpdateView):
+    model = BookOwner
+    form_class = BookOwnerForm
+    template_name = 'catalog/book_update.html'
+    def get_initial(self):
+        data = {'isbn':self.object.book.isbn,
+                'title':self.object.book.title,
+                'availability':self.object.availability,
+                'condition':self.object.condition}
+        return data
+
+    def get_success_url(self):
+        return reverse('catalog:bookshelf')
