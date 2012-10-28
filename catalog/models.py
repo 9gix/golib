@@ -34,7 +34,6 @@ class Book(models.Model):
 
 class BookOwner(models.Model):
     CONDITION_CHOICES = (
-            ('new','New'),
             ('good','Good'),
             ('ok','Ok'),
             ('bad','Bad'),
