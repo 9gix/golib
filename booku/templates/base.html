@@ -11,6 +11,7 @@
       {% if user.is_authenticated %}
         {% if user.get_profile %}
           <a href="{% url profiles_profile_detail user.username %}">Hi {{ user.first_name }}</a>
+          <a href="{% url catalog:bookshelf %}">My Book</a>
         {% else %}
           <a href="{% url profiles_create_profile %}">Profile</a>
         {% endif %}
