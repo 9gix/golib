@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.contrib.sites.models import get_current_site
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
 
 
@@ -50,7 +50,10 @@ def notify_owner(request, book_owner_id=None,
                 'message':form.cleaned_data['message'],
                 'site':get_current_site(request)
                 })
-            send_mail('Book Inquiry', email_message, None, (owner.email,))
+            email = EmailMessage('Book Inquiry', email_message,
+                    None, (owner.email,),
+                    headers = {'Reply-To': request.user.email})
+            email.send()
             book_owner.availability = False
             book_owner.save()
             return redirect(book)

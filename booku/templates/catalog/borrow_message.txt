@@ -6,7 +6,12 @@ Here's a message from {{ user.first_name }}:
 "{{ message }}"
 
 
-Kindly reply to this email directly to communicate with him.
+Kindly reply to this email directly to arrange a meetup location and time with him.
+
+Arrangement Checklist:
+- Location
+- Date & Time
+- Borrow Period
 
 Thanks,
 {{ site }} Mailer
