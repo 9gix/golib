@@ -9,6 +9,7 @@ from django.contrib.sites.models import get_current_site
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -21,6 +22,7 @@ def book_details(request, isbn=None, slug=None, template_name='catalog/book_deta
     book_owner_list = BookOwner.objects.filter(book=book)
     return render(request, template_name, locals())
 
+@login_required
 def book_add(request):
     if request.method == 'POST':
         book_owner = BookOwner(owner=request.user)
@@ -32,6 +34,7 @@ def book_add(request):
         form = BookOwnerForm()
     return render(request, 'catalog/book_add.html', locals())
 
+@login_required
 def bookshelf(request, template_name='catalog/bookshelf.html'):
     book_owners = BookOwner.objects.filter(
             owner__username=request.user.username)
@@ -44,6 +47,7 @@ def book_list(request, template_name='catalog/book_list.html'):
     form = BookOwnerForm()
     return render(request, template_name, locals())
 
+@login_required
 def notify_owner(request, book_owner_id=None,
         template_name='catalog/notify_owner.html'):
     book_owner = BookOwner.objects.get(id=book_owner_id)
