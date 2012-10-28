@@ -32,6 +32,8 @@ def book_add(request):
 
 def book_list(request, template_name='catalog/book_list.html'):
     books = Book.objects.annotate(Count('owners')).filter(owners__count__gt=0)
+    for book in books:
+        book.availability = book.bookowner_set.filter(availability=True).exists()
     form = BookOwnerForm()
     return render(request, template_name, locals())
 
