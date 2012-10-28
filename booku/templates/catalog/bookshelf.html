@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block body %}
 {% if book_owners %}
+<a href="{% url catalog:book_add %}">Add Book</a>
+<hr />
 <h1>My Bookshelf</h1>
 <table>
   <tr><th>ISBN</th><th>Title</th><th>Available</th></tr>
