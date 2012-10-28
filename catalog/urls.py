@@ -10,6 +10,8 @@ urlpatterns = patterns('catalog.views',
         name='book_details'),
     url(r'^add/$', 'book_add',
         name='book_add'),
+    url(r'^borrow/(?P<book_owner_id>(\d+))/$', 'notify_owner',
+        name='notify_owner'),
     url(r'^$','book_list',
         name='book_list'),
 )

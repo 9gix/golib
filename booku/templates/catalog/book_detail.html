@@ -2,16 +2,18 @@
 {% block body %}
     <h1>{{ book.title }}</h1>
     <p>{{ book.description }}</p>
+    <h2>List of Owner</h2>
     <table>
       <tr>
-        <th>Name</th><th>Address</th><th>Contact</th><th>Email</th>
+        <th>Name</th><th>Address</th><th>Book Condition</th><th>Book Available</th><th>Borrow</th>
       </tr>
-      {% for owner in book.owners.all %}
+      {% for bookowner in book_owner_list %}
       <tr>
-        <td>{{ owner.get_full_name }}</td>
-        <td>{{ owner.get_profile.address }}</td>
-        <td>{{ owner.get_profile.contact }}</td>
-        <td>{{ owner.email }}</td>
+        <td>{{ bookowner.owner.get_full_name }}</td>
+        <td>{{ bookowner.owner.get_profile.address }}</td>
+        <td>{{ bookowner.condition }}</td>
+        <td>{% if bookowner.availability %}Yes{% else %}No{% endif %}</td>
+        <td><a href="{% url catalog:notify_owner bookowner.id %}">Borrow</a></td>
       </tr>
       {% endfor %}
     </table>

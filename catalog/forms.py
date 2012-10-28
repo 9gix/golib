@@ -43,3 +43,6 @@ class BookOwnerForm(forms.ModelForm):
         self.instance.book = book
         return self.cleaned_data
 
+
+class MessageOwnerForm(forms.Form):
+    message = forms.CharField(widget=forms.Textarea)
