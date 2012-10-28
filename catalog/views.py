@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Book, BookOwner
-from catalog.forms import BookOwnerForm
+from catalog.forms import BookOwnerForm, MessageOwnerForm
 from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
 from django.core.urlresolvers import reverse
 from django.db.models import Count
+from django.contrib.sites.models import get_current_site
+from django.core.mail import send_mail
 
 
 
@@ -13,6 +16,7 @@ def book_details(request, isbn=None, slug=None, template_name='catalog/book_deta
         book = get_object_or_404(Book, isbn=isbn)
     elif slug:
         book = get_object_or_404(Book, slug=slug)
+    book_owner_list = BookOwner.objects.filter(book=book)
     return render(request, template_name, locals())
 
 def book_add(request):
@@ -30,3 +34,27 @@ def book_list(request, template_name='catalog/book_list.html'):
     books = Book.objects.annotate(Count('owners')).filter(owners__count__gt=0)
     form = BookOwnerForm()
     return render(request, template_name, locals())
+
+def notify_owner(request, book_owner_id=None,
+        template_name='catalog/notify_owner.html'):
+    book_owner = BookOwner.objects.get(id=book_owner_id)
+    owner = book_owner.owner
+    book = book_owner.book
+    if request.method == 'POST':
+        form = MessageOwnerForm(request.POST)
+        if form.is_valid():
+            email_message = render_to_string('catalog/borrow_message.txt', {
+                'owner':owner,
+                'user':request.user,
+                'book': book,
+                'message':form.cleaned_data['message'],
+                'site':get_current_site(request)
+                })
+            send_mail('Book Inquiry', email_message, None, (owner.email,))
+            book_owner.availability = False
+            book_owner.save()
+            return redirect(book)
+    else:
+        form = MessageOwnerForm()
+    return render(request, template_name, locals())
+

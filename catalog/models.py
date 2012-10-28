@@ -24,7 +24,10 @@ class Book(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('book_detail', (self.pk))
+        if self.isbn:
+            return ('catalog:book_details', (self.isbn, ))
+        else:
+            return ('catalog:book_details', (self.slug, ))
 
     def __unicode__(self):
         return self.title
