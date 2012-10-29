@@ -1,5 +1,5 @@
 from django import forms
-from catalog.models import Book, BookOwner, validate_isbn
+from catalog.models import Book, BookOwner, validate_isbn 
 from django.forms.widgets import HiddenInput
 from django.forms.models import fields_for_model
 from catalog.book import search_and_save_to_db
@@ -11,13 +11,21 @@ class BookModelForm(forms.ModelForm):
     class Meta:
         model = Book
 
-    def clean_isbn(self):
+    def clean_isbn10(self):
         """Set empty string of ISBN to NULL before saving to database
         Since ISBN must be unique or it is NULL,
         Empty string counts for uniqueness,
         while NULL doesn't count for uniqueness.
         """
-        return self.cleaned_data['isbn'] or None
+        return self.cleaned_data['isbn10'] or None
+
+    def clean_isbn13(self):
+        """Set empty string of ISBN to NULL before saving to database
+        Since ISBN must be unique or it is NULL,
+        Empty string counts for uniqueness,
+        while NULL doesn't count for uniqueness.
+        """
+        return self.cleaned_data['isbn13'] or None
 
 class BookOwnerForm(forms.ModelForm):
     """Owner Form to add or edit his Book"""
@@ -37,7 +45,9 @@ class BookOwnerForm(forms.ModelForm):
         isbn = self.cleaned_data.get('isbn')
         if isbn:
             isbn = isbn.replace("-", "").replace(" ", "").upper();
+
             validate_isbn(isbn)
+
             try:
                 book = Book.objects.get(isbn=isbn)
             except Book.DoesNotExist:

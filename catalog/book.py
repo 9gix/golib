@@ -19,9 +19,36 @@ def search_and_save_to_db(isbn):
     if book_data:
         title = book_data.get('title')
         description = book_data.get('description')
+        identifier_list = book_data.get('identifiers', [])
+        isbn10, isbn13 = None, None
+        for identifier in identifier_list:
+            """Sample Identifiers:
+                [('google_id', 'dwSfGQAACAAJ'),
+                ('ISBN', '0132350882'),
+                ('ISBN', '9780132350884')]"""
+            try:
+                if identifier[0] == 'ISBN':
+                    if len(identifier[1]) == 10:
+                        isbn10 = identifier[1]
+                    elif len(identifier[1]) == 13:
+                        isbn13 = identifier[1]
+            except IndexError:
+                # TODO: log this error, perhaps google change its structure
+                pass
+
+        try:
+            # ISBN that we sent should matched with the result from Google
+            if len(isbn) == 10:
+                assert isbn10 == isbn
+            elif len(isbn) == 13:
+                assert isbn13 == isbn
+        except AssertionError:
+            # TODO: log this error, investigate if this error happened
+            pass
 
         book = Book.objects.create(
-                isbn=isbn,
+                isbn10=isbn10,
+                isbn13=isbn13,
                 title=title,
                 description=description)
         return book

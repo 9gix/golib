@@ -16,7 +16,10 @@ from django.contrib.auth.decorators import login_required
 def book_details(request, isbn=None, slug=None, template_name='catalog/book_detail.html'):
     if isbn:
         isbn = isbn.replace("-", "").replace(" ", "").upper();
-        book = get_object_or_404(Book, isbn=isbn)
+        if len(isbn) == 10:
+            book = get_object_or_404(Book, isbn10=isbn)
+        elif len(isbn) == 13:
+            book = get_object_or_404(Book, isbn13=isbn)
     elif slug:
         book = get_object_or_404(Book, slug=slug)
     book_owner_list = BookOwner.objects.filter(book=book)
@@ -80,7 +83,7 @@ class BookUpdateView(UpdateView):
     template_name = 'catalog/book_update.html'
     success_url = reverse_lazy('catalog:bookshelf')
     def get_initial(self):
-        data = {'isbn':self.object.book.isbn,
+        data = {'isbn':self.object.book.isbn10,
                 'title':self.object.book.title,
                 'availability':self.object.availability,
                 'condition':self.object.condition}
