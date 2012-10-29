@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
-{% if book_owners %}
 <a href="{% url catalog:book_add %}">Add Book</a>
+{% if book_owners %}
 <hr />
 <h1>My Bookshelf</h1>
 <table>
