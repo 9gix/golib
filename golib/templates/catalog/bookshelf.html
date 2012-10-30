@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
-<a href="{% url catalog:book_add %}">Add Book</a>
+<div class="row">
+  <ul class="nav-bar">
+    <li><a href="{% url catalog:book_add %}">Add Book</a></li>
+</ul>
+</div>
 {% if book_owners %}
-<hr />
+<div class="row">
 <h1>My Bookshelf</h1>
 <table>
   <tr><th>ISBN</th><th>Title</th><th>Available</th><th>Action</th></tr>
@@ -19,5 +23,6 @@
   </tr>
   {% endfor %}
 </table>
+</div>
 {% endif %}
 {% endblock %}

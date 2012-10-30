@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
 {% if books %}
+<div class="row">
 <h1>Book Listing</h1>
 <table>
   <tr><th>ISBN</th><th>Title</th><th>Available</th></tr>
@@ -16,5 +17,6 @@
   </tr>
   {% endfor %}
 </table>
+</div>
 {% endif %}
 {% endblock %}

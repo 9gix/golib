@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
 {% if user == profile.user %}
-<a href="{% url profiles_edit_profile %}">Edit Profile</a>
-<hr />
+<div class="row">
+<ul class="nav-bar">
+  <li><a href="{% url profiles_edit_profile %}">Edit Profile</a></li>
+</ul>
+</div>
 {% endif %}
+<div class="row">
 <h1>
 {% if user == profile.user %}
 {{ user.get_full_name }}
@@ -15,4 +19,5 @@
   <tr><td>Address :</td><td>{{ profile.address|linebreaksbr }}</td></tr>
   {% if user == profile.user %}<tr><td>Contact :</td><td> {{ profile.contact }}</td></tr>{% endif %}
 </table>
+</div>
 {% endblock %}

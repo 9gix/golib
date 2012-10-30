@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+  <div class="row">
     <h1>{{ book.title }}</h1>
     <p>{{ book.description }}</p>
     <h2>Message {{ owner.first_name }}</h2>
@@ -10,4 +11,5 @@
         <tr><td></td><td><input type='submit' value='Send'></td></tr>
       </table>
     </form>
+  </div>
 {% endblock %}

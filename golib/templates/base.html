@@ -1,38 +1,49 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-        <script type="text/javascript" src="{% static "js/jquery-1.8.2.min.js" %}"></script>
-    </head>
-    <body>
-        <a href='/'><img src='{% static "images/building_site.png" %}' width='300'/></a>
-      {% if user.is_authenticated %}
-        {% if user.get_profile %}
-          <a href="{% url profiles_profile_detail user.username %}">Hi {{ user.first_name }}</a>
-          <a href="{% url catalog:bookshelf %}">My Book</a>
-        {% else %}
-          <a href="{% url profiles_create_profile %}">Profile</a>
-        {% endif %}
-        <a href='{% url auth_logout %}'>Logout</a>
-        <a href='mailto:yeo.eugene.oey@gmail.com'>Email Admin</a>
-      {% else %}
-        <a href='{% url auth_login %}'>Login</a>
-        <a href='{% url registration_register %}'>Register</a>
-      {% endif %}
-      <hr />
-      {% if not user.is_authenticated %}
-      <p><strike>E-book</strike> Book waits to be read someday by someone</p>
-        <p>If you share your book, you get new friends within your interest. There are millions of people want to read your book. And there could be hundreds or thousands lives nearby your home</p>
-        <p>It would be nice if we all could work together by sharing your book of your interest within your nearby surrounding</p>
-        <p>You as a registered member can share your own book and borrow others</p>
-        <p>And don't forget to thanks the owner... It's <b>free</b></p>
-        <hr />
-      {% endif %}
-      {% block body %}
-      {% endblock %}
-        <hr />
-        <p><i>This is a free service for book sharing originally developed by <a href="mailto:yeo.eugene.oey@gmail.com">Eugene</a> as a hobby. If you wish to contribute, it is open source Django project at <a href="https://github.com/yeo-eugene-oey/booku">Git</a>. If you wish to donate, I am not ready. But Thank you</i></p>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="{% static "js/jquery-1.8.2.min.js" %}"></script>
+    <link media="screen, projector, print" rel="stylesheet" type="text/css" href="{% static "css/app.css" %}"/>
+  </head>
+  <body>
+    <nav class="top-bar">
+      <ul>
+        <li class="name"><h1><a href="/">GoLib</a></h1></li>
+      </ul>
+      <section>
+        <ul class="right">
+          <li class="divider"></li>
+          {% if user.is_authenticated %}
+            {% if user.get_profile %}
+              <li><a href="{% url profiles_profile_detail user.username %}">Hi {{ user.first_name }}</a></li>
+              <li class="divider"></li>
+              <li><a href="{% url catalog:bookshelf %}">My Book</a></li>
+            {% else %}
+              <li><a href="{% url profiles_create_profile %}">Profile</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href='{% url auth_logout %}'>Logout</a></li>
+            <li class="divider"></li>
+            <li><a href='mailto:yeo.eugene.oey@gmail.com'>Email Admin</a></li>
+          {% else %}
+            <li><a href='{% url auth_login %}'>Login</a></li>
+            <li class="divider"></li>
+            <li><a href='{% url registration_register %}'>Register</a></li>
+          {% endif %}
+        </ul>
+      </section>
+    </nav>
+    {% block body %}
+    {% endblock %}
+    </div>
+    
+    <footer class="row">
+    <div class="row"><hr />
+      <div class="six columns">
+        <p>©<i>GoLib. A free service for book sharing powered by communities. </i></p></div>
+      <div class="six columns">
+        <p><i>Site developed by <a href="http://eugene-yeo.me">Eugene</a> as hobby at <a href="https://github.com/yeo-eugene-oey/booku">Github</a></i></p></div></div></footer>
+  </body>
 </html>

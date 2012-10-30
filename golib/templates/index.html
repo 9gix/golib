@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% if not user.is_authenticated %}
+    <div class="row">
+      <div class="twelve columns">
+        <h1>GoLib: Book Sharing</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="four columns">
+        <p>Why share my book for free? In the past, when money was not invented. People are trading items based on the needs, (demands and supply). Monetary is not always the solution for most cases. In the future, money will have a lesser values. Reputation on how people knows about you is more important than being a millionaire. </p>
+      </div>
+      <div class="four columns">
+        <p>So share it to someone who have the same interest with you. If you share your book, you get to know a new friends highly chances that this friends having the same interest as you. There could be hundreds of people who lives nearby you searching for a book that you have. It would be a perfect time to find a new friends by lending our books to the people who have the same passions.</p>
+      </div>
+      <div class="four columns">
+        <p>You as a registered member can share your own book and borrow others.
+        As a common sense to all of us once approved:
+        <ol>
+          <li>Greet and get to know each others well</li>
+          <li>Grab a coffee, have a chat</li>
+          <li>Say thanks if the book was borrowed to you</li>
+          <li>Take care of the book</li>
+          <li>Never ask for money and forget about ROI</li>
+          <li>Return Book on time</li>
+          <li>Lastly Keep in touch with your new friends</li>
+        </ol>
+        </p>
+      </div>
+    {% endif %}
+{% endblock %}

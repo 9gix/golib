@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+<div class="row">
 <h1>Update your book here</h1>
 <form action='' method='POST'>
   {% csrf_token %}
@@ -8,4 +9,5 @@
     <tr><td></td><td><input type='submit' value='Save'></td></tr>
   </table>
 </form>
+</div>
 {% endblock %}

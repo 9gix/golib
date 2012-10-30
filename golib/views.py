@@ -1,5 +1,7 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.core.urlresolvers import reverse
 
 def index(request):
-    return redirect(reverse('catalog:book_list'))
+    if request.user.is_authenticated():
+        return redirect(reverse('catalog:book_list'))
+    return render(request, 'index.html', {})
