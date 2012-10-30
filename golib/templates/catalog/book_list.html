@@ -4,7 +4,7 @@
 <div class="row">
 <h1>Book Listing</h1>
 <table>
-  <tr><th>ISBN</th><th>Title</th><th>Available</th></tr>
+  <tr><th>ISBN</th><th>Title</th><th>Availability</th></tr>
   {% for book in books %}
   <tr>
     <td>{% if book.isbn %}{{ book.isbn }}{% else %}-{% endif %}</td>
@@ -13,7 +13,7 @@
     {% else %}
       <td><a href="{% url catalog:book_details book.slug %}">{{ book.title }}</a></td>
     {% endif %}
-    <td>{{ book.availability }}</td>
+    <td>{% if book.availability %}Available{% endif %}</td>
   </tr>
   {% endfor %}
 </table>
