@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^book/', include('catalog.urls', namespace='catalog')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^profile/', include('accounts.urls')),
-    url(r'^$', 'booku.views.index'),
+    url(r'^$', 'golib.views.index'),
 )
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
