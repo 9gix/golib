@@ -1,4 +1,4 @@
-# Local settings for booku project.
+# Local settings for golib project.
 LOCAL_SETTINGS = True
 from settings import *
 

@@ -1,4 +1,4 @@
-# Global settings for booku project.
+# Global settings for golib project.
 import os
 
 PROJECT_DIR = os.path.dirname(__file__)
@@ -88,10 +88,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'booku.urls'
+ROOT_URLCONF = 'golib.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'booku.wsgi.application'
+WSGI_APPLICATION = 'golib.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
