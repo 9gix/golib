@@ -14,9 +14,12 @@
 atlassian-ide-plugin.xml
 
 # Project
-/booku/local_settings.py
-/booku/public/static
-/booku/public/media
+local_settings.py
+public/static
+public/media
 
 # Database
 *.db
+
+# Cache
+.sass-cache

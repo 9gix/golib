@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row">
+<form action='' method='POST'>
+  {% csrf_token %}
+  <label for="confirm_delete">Are you sure want to remove your book "{{ object }}"?</label>
+  <input type='submit' value='Delete' id='confirm_delete'>
+</form>
+</div>
+{% endblock %}

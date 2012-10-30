@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row">
+  <ul class="nav-bar">
+    <li><a href="{% url catalog:book_add %}">Add Book</a></li>
+</ul>
+</div>
+{% if book_owners %}
+<div class="row">
+<h1>My Bookshelf</h1>
+<table>
+  <tr><th>ISBN</th><th>Title</th><th>Available</th><th>Action</th></tr>
+  {% for book_owner in book_owners %}
+  <tr>
+    <td>{% if book_owner.book.isbn %}{{ book_owner.book.isbn }}{% else %}-{% endif %}</td>
+    {% if book_owner.book.isbn %}
+      <td><a href="{% url catalog:book_details book_owner.book.isbn %}">{{ book_owner.book.title }}</a></td>
+    {% else %}
+      <td><a href="{% url catalog:book_details book_owner.book.slug %}">{{ book_owner.book.title }}</a></td>
+    {% endif %}
+    <td>{{ book_owner.availability }}</td>
+    <td><a href="{% url catalog:book_update book_owner.id %}">Update</a> | <a href="{% url catalog:book_delete book_owner.id %}">Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+{% endif %}
+{% endblock %}

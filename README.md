@@ -12,13 +12,13 @@ If you're not using virtualenv or virtualenvwrapper you may skip this step.
 
 #### For virtualenvwrapper ####
 ```bash
-mkvirtualenv --no-site-packages booku-env
+mkvirtualenv --no-site-packages golib-env
 ```
 
 #### For virtualenv ####
 ```bash
-virtualenv --no-site-packages booku-env
-cd booku-env
+virtualenv --no-site-packages golib-env
+cd golib-env
 source bin/activate
 ```
 
@@ -26,19 +26,19 @@ source bin/activate
 Obtain the url to your git repository.
 
 ```bash
-git clone <URL_TO_GIT_RESPOSITORY> booku
+git clone <URL_TO_GIT_RESPOSITORY> golib
 ```
 
 ### Install requirements ###
 ```bash
-cd booku
+cd golib
 pip install -r requirements.txt
 ```
 
 ### Configure project ###
 ```bash
-cp booku/__local_settings.py booku/local_settings.py
-vi booku/local_settings.py
+cp golib/__local_settings.py golib/local_settings.py
+vi golib/local_settings.py
 ```
 
 ### Sync database ###

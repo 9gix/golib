@@ -3,7 +3,7 @@ from catalog.models import Book, BookOwner
 from catalog.forms import BookOwnerForm, MessageOwnerForm
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Count
 from django.contrib.sites.models import get_current_site
 from django.core.mail import EmailMessage
@@ -16,7 +16,10 @@ from django.contrib.auth.decorators import login_required
 def book_details(request, isbn=None, slug=None, template_name='catalog/book_detail.html'):
     if isbn:
         isbn = isbn.replace("-", "").replace(" ", "").upper();
-        book = get_object_or_404(Book, isbn=isbn)
+        if len(isbn) == 10:
+            book = get_object_or_404(Book, isbn10=isbn)
+        elif len(isbn) == 13:
+            book = get_object_or_404(Book, isbn13=isbn)
     elif slug:
         book = get_object_or_404(Book, slug=slug)
     book_owner_list = BookOwner.objects.filter(book=book)
@@ -78,12 +81,24 @@ class BookUpdateView(UpdateView):
     model = BookOwner
     form_class = BookOwnerForm
     template_name = 'catalog/book_update.html'
+    success_url = reverse_lazy('catalog:bookshelf')
     def get_initial(self):
-        data = {'isbn':self.object.book.isbn,
+        data = {'isbn':self.object.book.isbn10,
                 'title':self.object.book.title,
                 'availability':self.object.availability,
                 'condition':self.object.condition}
         return data
 
-    def get_success_url(self):
-        return reverse('catalog:bookshelf')
+    def get_queryset(self):
+        """Limit User to update their own data"""
+        qs = super(BookUpdateView, self).get_queryset()
+        return qs.filter(owner=self.request.user)
+
+class BookDeleteView(DeleteView):
+    model = BookOwner
+    success_url = reverse_lazy('catalog:bookshelf')
+
+    def get_queryset(self):
+        """Limit User to delete their own data"""
+        qs = super(BookDeleteView, self).get_queryset()
+        return qs.filter(owner=self.request.user)

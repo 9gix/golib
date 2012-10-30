@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+  <div class="row">
+    <h1>{{ book.title }}</h1>
+    <p>{{ book.description }}</p>
+    <h2>List of Owner</h2>
+    <table>
+      <tr>
+        <th>Name</th><th>Address</th><th>Book Condition</th><th>Book Available</th><th>Borrow</th>
+      </tr>
+      {% for bookowner in book_owner_list %}
+      <tr>
+        <td>{{ bookowner.owner.get_full_name }}</td>
+        <td>{{ bookowner.owner.get_profile.address }}</td>
+        <td>{{ bookowner.condition }}</td>
+        <td>{% if bookowner.availability %}Yes{% else %}No{% endif %}</td>
+        <td><a href="{% url catalog:notify_owner bookowner.id %}">Borrow</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}
