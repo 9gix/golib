@@ -70,7 +70,9 @@ class Book(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        if self.isbn10:
+        if self.isbn13:
+            return ('catalog:book_details', (self.isbn13, ))
+        elif self.isbn10:
             return ('catalog:book_details', (self.isbn10, ))
         else:
             return ('catalog:book_details', (self.slug, ))
@@ -85,7 +87,7 @@ class Book(models.Model):
 
     @property
     def isbn(self):
-        return self.isbn10 or self.isbn13
+        return self.isbn13 or self.isbn10
 
 class BookOwner(models.Model):
     CONDITION_CHOICES = (
