@@ -4,7 +4,7 @@ from catalog.models import Book
 def fetch_book_detail(isbn):
     """Fetch book from Google Book Service and Return dict of book info"""
     service = BookService()
-    result = service.search_by_keyword(isbn=isbn)
+    result = service.search(isbn)
     try:
         book = result.entry[0]
     except IndexError:
@@ -18,7 +18,7 @@ def search_and_save_to_db(isbn):
 
     if book_data:
         title = book_data.get('title')
-        description = book_data.get('description')
+        description = book_data.get('description','')
         identifier_list = book_data.get('identifiers', [])
         isbn10, isbn13 = None, None
         for identifier in identifier_list:
