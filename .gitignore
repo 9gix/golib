@@ -20,3 +20,6 @@ public/media
 
 # Database
 *.db
+
+# Cache
+.sass-cache
