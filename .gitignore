@@ -15,8 +15,8 @@ atlassian-ide-plugin.xml
 
 # Project
 local_settings.py
-public/static
-public/media
+golib/public/static
+golib/public/media
 
 # Database
 *.db

@@ -56,7 +56,7 @@ class BookOwnerForm(forms.ModelForm):
             if not book:
                 raise ValidationError("We couldn't find your book")
         elif title:
-            book = Book.objects.create(title=title)
+            book, created = Book.objects.get_or_create(title=title)
         else:
             raise ValidationError("What book do you have?")
 

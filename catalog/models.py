@@ -82,7 +82,13 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = slugify(self.title)
+            if self.isbn10:
+                self.slug = slugify(self.isbn10)
+            elif self.isbn13:
+                self.slug = slugify(self.isbn13)
+            else:
+                self.slug = ''
+            self.slug = "%s-%s" % (self.slug, slugify(self.title))
         super(Book, self).save(*args, **kwargs)
 
     @property
