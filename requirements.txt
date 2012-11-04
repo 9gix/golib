@@ -4,3 +4,4 @@ django-extensions>=0.9
 django-registration>=0.8
 django-profiles>=0.2
 gdata>=2.0.17
+-e git://github.com/clintecker/django-google-analytics.git@master#egg=google_analytics
