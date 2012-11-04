@@ -6,12 +6,13 @@ class UserRegistrationForm(RegistrationFormUniqueEmail):
     first_name = forms.CharField()
     last_name = forms.CharField(required=False)
     address = forms.CharField(
-            required=False,
+            required=True,
             widget=forms.Textarea,
-            help_text="The book collection address or meetup point")
+            help_text="Warning: Don't Include your Unit Number for privacy.\
+                    (Only Block and Street)")
     contact = forms.CharField(
-            required=False,
-            help_text="Receive a call from the borrower directly")
+            required=True,
+            help_text="Reminder if you forgot to return somebody books")
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
@@ -26,12 +27,15 @@ class UserProfileForm(forms.ModelForm):
     last_name = forms.CharField(label='Last Name', max_length=30, 
             required=False)
     address = forms.CharField(
-            required=False,
+            required=True,
             widget=forms.Textarea,
-            help_text="The book collection address or meetup point")
+            help_text="Use the following Format:'<BLK> <STREET> <Singapore>'\
+                    \nLet us know which area you stay,\
+                    \nWarning: Don't Include your Unit Number for privacy.")
     contact = forms.CharField(
-            required=False,
-            help_text="Receive a call from the borrower directly")
+            required=True,
+            help_text="Just for our records, \
+                    in case you forgot to return somebody books")
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)

@@ -28,6 +28,8 @@
             <li class="divider"></li>
             <li><a href='mailto:yeo.eugene.oey@gmail.com'>Email Admin</a></li>
           {% else %}
+            <li><a href='{% url catalog:book_list %}'>Browse Books</a></li>
+            <li class="divider"></li>
             <li><a href='{% url auth_login %}'>Login</a></li>
             <li class="divider"></li>
             <li><a href='{% url registration_register %}'>Register</a></li>
