@@ -131,6 +131,7 @@ INSTALLED_APPS = (
 
     # 3rd Party Apps
     'django_extensions',
+    'google_analytics',
     'profiles',
     'registration',
     'south',
