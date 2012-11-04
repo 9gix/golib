@@ -8,13 +8,11 @@ class UserRegistrationForm(RegistrationFormUniqueEmail):
     address = forms.CharField(
             required=True,
             widget=forms.Textarea,
-            help_text="Use the following Format:'<BLK> <STREET> <Singapore>'\
-                    \nLet us know which area you stay,\
-                    \nWarning: Don't Include your Unit Number for privacy.")
+            help_text="Warning: Don't Include your Unit Number for privacy.\
+                    (Only Block and Street)")
     contact = forms.CharField(
             required=True,
-            help_text="Just for our records, \
-                    in case you forgot to return somebody books")
+            help_text="Reminder if you forgot to return somebody books")
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
